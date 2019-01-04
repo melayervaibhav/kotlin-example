@@ -4,15 +4,17 @@ import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 
 @Entity
-data class User (
+data class User(
+
+        val userName: String? = null,
+        val password: String? = null,
+        val email: String? = null,
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        public val id: Int? = null,
-        public val userName: String? = null,
-        public val password: String? = null,
-        public val email: String? = null,
+        val id: Int? = null
+) {
         @JsonManagedReference
         @OneToMany(mappedBy = "userOne", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
-        public val address: Set<Address>?= emptySet()
-)
+        val address: Set<Address>? = emptySet()
+}
 
