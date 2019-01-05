@@ -1,19 +1,21 @@
 package demo.kotlinexample.domain
 
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import com.fasterxml.jackson.annotation.JsonProperty
 import javax.persistence.*
 
 @Entity
 data class User(
-
-        val userName: String? = null,
-        val password: String? = null,
-        val email: String? = null,
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Int? = null
+        val id: Int? = null,
+        val userName: String? = null,
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+        val password: String? = null,
+        val email: String? = null
+
 ) {
-        @JsonManagedReference
+
         @OneToMany(mappedBy = "userOne", cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
         val address: Set<Address>? = emptySet()
 }

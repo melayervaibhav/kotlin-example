@@ -14,7 +14,7 @@ class UserController(
         private val userRepo: UserRepo,
         private val addressRepo: AddressRepo
 ) {
-    @Autowired(required = true)
+    @Autowired()
     lateinit var userService: UserService
 
     @PostMapping("/addUser")
@@ -36,6 +36,9 @@ class UserController(
     }
 
     @GetMapping("/getUserDetailById")
-    fun getAllUsers(@RequestParam userId: Int) {
+    fun getAllUsers(@RequestParam userId: Int): Map<String, Any> {
+        val user = userRepo.findById(userId)
+        println("000000000000------------ $user");
+        return mapOf("msg" to "success", "result" to user)
     }
 }
