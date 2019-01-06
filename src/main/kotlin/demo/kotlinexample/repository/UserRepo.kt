@@ -3,6 +3,7 @@ package demo.kotlinexample.repository
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import demo.kotlinexample.domain.User
+import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import org.springframework.lang.NonNull
@@ -30,6 +31,9 @@ interface UserRepo : JpaRepository<User, Int> {
 
     @Query("SELECT u FROM User u WHERE u.userName = ?1")
     fun retrieveByUsername(userName: String): List<User>
+
+    @Query("SELECT u FROM User u")
+    fun getAllUsersByASC(sort: Sort): List<User>
 
 
     /* ------------- END Non-native query formatted Code ---------------- */

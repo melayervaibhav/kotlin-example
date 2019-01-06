@@ -7,6 +7,7 @@ import demo.kotlinexample.repository.UserRepo
 import demo.kotlinexample.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import kotlin.text.Typography.greater
 
 
 @RestController
@@ -40,5 +41,13 @@ class UserController(
         val user = userRepo.findById(userId)
         println("000000000000------------ $user");
         return mapOf("msg" to "success", "result" to user)
+    }
+    @GetMapping("/getUserAtPositionOfGreatestId")
+    fun getAllUsersByASC(@RequestParam position:Int): Map<String, Any> {
+        return this.userService.getUserOfGreatestId(position)
+    }
+    @GetMapping("getSortedUserListByField")
+    fun getSortedUserListByField(@RequestParam field:String, @RequestParam sortOrder:String): Map<String, Any> {
+        return this.userService.sortUser(field, sortOrder)
     }
 }
